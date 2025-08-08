@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Organizzazione su Ibidem</title>
+    
+    <!-- Meta tags dinamici -->
+    <meta name="description" content="Scopri questa organizzazione su Ibidem" id="page-description">
+    <meta property="og:title" content="Organizzazione su Ibidem" id="og-title">
+    <meta property="og:description" content="Scopri questa organizzazione su Ibidem" id="og-description">
+    <meta property="og:image" content="" id="og-image">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="../">
+                    <img src="../images/logo.png" alt="Ibidem Logo" class="nav-logo">
+                    <span>Ibidem</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="../#features">Funzionalità</a>
+                <a href="../download.html">Download</a>
+                <a href="../#contatti">Contatti</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="organizzazione-page">
+        <!-- Loading state -->
+        <div id="loading" class="loading-container">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <h2>Caricamento organizzazione...</h2>
+            </div>
+        </div>
+
+        <!-- Error state -->
+        <div id="error" class="error-container" style="display: none;">
+            <div class="error-content">
+                <span class="material-icons error-icon">error_outline</span>
+                <h2>Organizzazione non trovata</h2>
+                <p>L'organizzazione che stai cercando non esiste.</p>
+                <a href="../" class="btn-primary">Torna alla Home</a>
+            </div>
+        </div>
+
+        <!--# 🌐 Ibidem Website - Repository GitHub
+
+## 📁 Struttura File del Repository
