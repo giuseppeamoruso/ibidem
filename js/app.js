@@ -1,12 +1,12 @@
 // 🔧 AGGIORNA js/app.js con le tue credenziali Supabase REALI
 
 // Configurazione AGGIORNATA con i tuoi dati
+// 🔧 AGGIORNA la configurazione con il TUO URL Netlify
 const CONFIG = {
     APP_SCHEME: 'ibidem://',
-    PLAY_STORE_URL: 'https://play.google.com/store/apps/details?id=com.ibidem.app',
-    APP_STORE_URL: 'https://apps.apple.com/app/ibidem/id123456789',
-    // 🆕 CREDENZIALI REALI SUPABASE
-    SUPABASE_URL: 'https://chvjgriyinbbowtavdrj.supabase.co',
+    PLAY_STORE_URL: 'https://play.google.com/store/apps/details?id=com.example.flutter_projects', // 🔧 Sostituisci con il tuo
+    APP_STORE_URL: 'https://apps.apple.com/app/ibidem/id123456789', // 🔧 Sostituisci con il tuo
+    SUPABASE_URL: 'https://chvjgriyinbbowtavdrj.supabase.co', // ✅ Già corretto
     SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNodmpncml5aW5iYm93dGF2ZHJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzMzc4MzMsImV4cCI6MjA2MzkxMzgzM30.m6Lr9ZrT8Gkp00zWOmcYA4DnZfBC0wyuZf46VBTYsb8'
 };
 
