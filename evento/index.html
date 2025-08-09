@@ -3,396 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Evento su Ibidem</title>
+    <title>Evento Ibidem</title>
+    <meta name="description" content="Scopri questo evento su Ibidem">
     
-    <!-- Meta tags dinamici -->
-    <meta name="description" content="Scopri questo evento su Ibidem" id="page-description">
-    <meta property="og:title" content="Evento su Ibidem" id="og-title">
-    <meta property="og:description" content="Scopri questo evento su Ibidem" id="og-description">
-    <meta property="og:image" content="" id="og-image">
-    <meta property="og:url" content="" id="og-url">
+    <!-- Open Graph per condivisione social -->
+    <meta property="og:title" content="Evento su Ibidem">
+    <meta property="og:description" content="Scopri questo evento e partecipa tramite l'app Ibidem">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ibidem.netlify.app">
     
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../images/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: #D32F2F;
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #D32F2F;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #B71C1C;
+            transform: translateY(-2px);
+        }
+        .btn.secondary {
+            background: #4CAF50;
+        }
+        .btn.secondary:hover {
+            background: #388E3C;
+        }
+        .countdown {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #666;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #D32F2F;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hidden { display: none; }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <a href="../">
-                    <img src="../images/logo.png" alt="Ibidem Logo" class="nav-logo">
-                    <span>Ibidem</span>
-                </a>
-            </div>
-            <div class="nav-links">
-                <a href="../#features">Funzionalità</a>
-                <a href="../download.html">Download</a>
-                <a href="../#contatti">Contatti</a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="evento-page">
-        <!-- Loading state -->
-        <div id="loading" class="loading-container">
-            <div class="loading-content">
-                <div class="spinner"></div>
-                <h2>Caricamento evento...</h2>
-                <p>Stiamo recuperando i dettagli dell'evento dal database</p>
-            </div>
-        </div>
-
-        <!-- Error state -->
-        <div id="error" class="error-container" style="display: none;">
-            <div class="error-content">
-                <span class="material-icons error-icon">error_outline</span>
-                <h2>Evento non trovato</h2>
-                <p>L'evento che stai cercando non esiste o è stato rimosso dal database.</p>
-                <a href="../" class="btn-primary">Torna alla Home</a>
-            </div>
-        </div>
-
-        <!-- Evento content -->
-        <div id="evento-content" class="evento-container" style="display: none;">
-            <!-- Header evento -->
-            <div class="evento-header">
-                <div class="container">
-                    <div class="evento-image-container">
-                        <img id="evento-image" src="" alt="" class="evento-image">
-                        <div class="evento-overlay">
-                            <div class="evento-badge" id="evento-badge">
-                                <span class="material-icons">event</span>
-                                <span>Evento</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="evento-info">
-                        <h1 id="evento-titolo" class="evento-title"></h1>
-                        <div class="evento-meta">
-                            <div class="meta-item">
-                                <span class="material-icons">calendar_today</span>
-                                <span id="evento-data"></span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="material-icons">access_time</span>
-                                <span id="evento-ora"></span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="material-icons">location_on</span>
-                                <span id="evento-luogo"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Evento details -->
-            <div class="evento-details">
-                <div class="container">
-                    <div class="details-grid">
-                        <div class="details-main">
-                            <section class="description-section">
-                                <h2>Descrizione</h2>
-                                <div id="evento-descrizione" class="evento-description"></div>
-                            </section>
-                            
-                            <section class="organizzatore-section">
-                                <h2>Organizzatore</h2>
-                                <div id="evento-organizzatore" class="organizzatore-info">
-                                    <!-- Popolato da JavaScript -->
-                                </div>
-                            </section>
-                        </div>
-                        
-                        <div class="details-sidebar">
-                            <!-- App prompt -->
-                            <div class="app-prompt-card">
-                                <div class="app-prompt-header">
-                                    <span class="material-icons">phone_android</span>
-                                    <h3>Hai l'app Ibidem?</h3>
-                                </div>
-                                <p>Scarica l'app per partecipare all'evento e ricevere notifiche!</p>
-                                
-                                <!-- Try to open app button -->
-                                <button id="open-app-btn" class="btn-open-app" onclick="tryOpenApp()">
-                                    <span class="material-icons">launch</span>
-                                    Apri nell'App
-                                </button>
-                                
-                                <!-- Download buttons -->
-                                <div class="download-buttons-small">
-                                    <a href="https://play.google.com/store/apps/details?id=com.ibidem.app" class="btn-download-small" target="_blank">
-                                        <img src="../images/google-play.png" alt="Google Play">
-                                    </a>
-                                    <a href="https://apps.apple.com/app/ibidem/id123456789" class="btn-download-small" target="_blank">
-                                        <img src="../images/app-store.png" alt="App Store">
-                                    </a>
-                                </div>
-                            </div>
-                            
-                            <!-- Share card -->
-                            <div class="share-card">
-                                <h3>Condividi evento</h3>
-                                <div class="share-buttons">
-                                    <button onclick="shareEvent('whatsapp')" class="share-btn whatsapp">
-                                        <span class="material-icons">share</span>
-                                        WhatsApp
-                                    </button>
-                                    <button onclick="shareEvent('telegram')" class="share-btn telegram">
-                                        <span class="material-icons">share</span>
-                                        Telegram
-                                    </button>
-                                    <button onclick="shareEvent('copy')" class="share-btn copy">
-                                        <span class="material-icons">content_copy</span>
-                                        Copia Link
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- 🆕 NUOVO: Carica prima il JavaScript principale con Supabase -->
-    <script src="../js/app.js"></script>
-    
-    <!-- 🆕 NUOVO: JavaScript specifico per evento (SEMPLIFICATO) -->
-    <script>
-        let currentEvento = null;
+    <div class="container">
+        <div class="logo">📅</div>
+        <h1>Evento Ibidem</h1>
+        <p id="status">Tentativo di apertura dell'app in corso...</p>
         
-        // Estrai ID evento dall'URL con logica migliorata
-        function getEventoId() {
-            // Prova diversi metodi per ottenere l'ID
-            const urlParams = new URLSearchParams(window.location.search);
-            let eventoId = urlParams.get('id');
-            
-            if (!eventoId) {
-                // Prova dal path: /evento/123
-                const pathSegments = window.location.pathname.split('/').filter(p => p);
-                const eventoIndex = pathSegments.indexOf('evento');
-                if (eventoIndex !== -1 && eventoIndex + 1 < pathSegments.length) {
-                    eventoId = pathSegments[eventoIndex + 1];
-                }
+        <div id="loading" class="countdown">
+            <div class="loading"></div>
+            Reindirizzamento all'app...
+        </div>
+        
+        <div id="buttons" class="hidden">
+            <a href="#" id="openApp" class="btn">🚀 Apri in App</a>
+            <a href="#" id="downloadApp" class="btn secondary">📱 Scarica App</a>
+        </div>
+        
+        <div id="fallback" class="hidden">
+            <p>L'app Ibidem non è installata o non si è aperta automaticamente.</p>
+            <a href="#" id="downloadLink" class="btn">📱 Scarica Ibidem</a>
+        </div>
+    </div>
+
+    <script>
+        // 🎯 Estrai parametri URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventoId = urlParams.get('id');
+        const prUserId = urlParams.get('pr');
+        
+        console.log('🔍 Parametri URL:', { eventoId, prUserId });
+        
+        // 🚀 Genera deep link per l'app
+        function generateAppLink() {
+            let appLink = `ibidem://evento/${eventoId}`;
+            if (prUserId) {
+                appLink += `?pr=${prUserId}`;
             }
-            
-            if (!eventoId) {
-                // Prova dall'hash: #123
-                eventoId = window.location.hash.replace('#', '');
-            }
-            
-            return eventoId;
+            return appLink;
         }
         
-        const eventoId = getEventoId();
-        console.log('🎯 Evento ID estratto:', eventoId);
+        // 🎯 Tenta di aprire l'app
+        function attemptAppOpen() {
+            const appLink = generateAppLink();
+            console.log('🚀 Tentativo apertura app:', appLink);
+            
+            // Crea un link nascosto e cliccalo
+            const hiddenLink = document.createElement('a');
+            hiddenLink.href = appLink;
+            hiddenLink.style.display = 'none';
+            document.body.appendChild(hiddenLink);
+            hiddenLink.click();
+            document.body.removeChild(hiddenLink);
+        }
         
-        // Carica dettagli evento quando il DOM è pronto
-        document.addEventListener('DOMContentLoaded', async function() {
-            if (eventoId && eventoId !== '') {
-                console.log(`🚀 Inizio caricamento evento ID: ${eventoId}`);
-                await loadEventoDetails(eventoId);
+        // 🔄 Funzione principale
+        function init() {
+            if (!eventoId) {
+                document.getElementById('status').textContent = 'ID evento non valido';
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('fallback').classList.remove('hidden');
+                return;
+            }
+            
+            // Aggiorna i link
+            const appLink = generateAppLink();
+            document.getElementById('openApp').href = appLink;
+            
+            // Tenta apertura immediata
+            attemptAppOpen();
+            
+            // Mostra opzioni dopo 3 secondi
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('status').textContent = 'L\'app non si è aperta automaticamente?';
+                document.getElementById('buttons').classList.remove('hidden');
+            }, 3000);
+            
+            // Fallback dopo 6 secondi
+            setTimeout(() => {
+                document.getElementById('buttons').classList.add('hidden');
+                document.getElementById('fallback').classList.remove('hidden');
+            }, 8000);
+        }
+        
+        // 📱 Gestisci click download
+        document.getElementById('downloadApp').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Reindirizza agli store
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isAndroid = /Android/.test(navigator.userAgent);
+            
+            if (isIOS) {
+                // Sostituisci con il tuo link App Store quando sarà disponibile
+                window.location.href = 'https://apps.apple.com/app/ibidem';
+            } else if (isAndroid) {
+                // Sostituisci con il tuo link Google Play quando sarà disponibile
+                window.location.href = 'https://play.google.com/store/apps/details?id=com.ibidem.app';
             } else {
-                console.log('❌ Nessun ID evento trovato nell\'URL');
-                showError();
+                alert('App disponibile per iOS e Android');
             }
         });
         
-        // 🆕 NUOVA: Funzione per aprire app (semplificata)
-        function tryOpenApp() {
-            if (!eventoId) {
-                console.log('❌ Nessun evento ID disponibile per aprire app');
-                return;
-            }
-            
-            const appUrl = `ibidem://evento/${eventoId}`;
-            const storeUrl = 'https://play.google.com/store/apps/details?id=com.ibidem.app';
-            
-            console.log('🚀 Tentativo apertura app:', appUrl);
-            
-            // Mostra feedback immediato
-            const button = document.getElementById('open-app-btn');
-            if (button) {
-                const originalText = button.innerHTML;
-                button.innerHTML = '<span class="material-icons">hourglass_empty</span> Apertura...';
-                button.disabled = true;
-                
-                // Ripristina il bottone dopo 3 secondi
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                    button.disabled = false;
-                }, 3000);
-            }
-            
-            // Tenta apertura app
-            window.location.href = appUrl;
-            
-            // Fallback su store dopo 2 secondi se app non si apre
-            setTimeout(() => {
-                if (document.visibilityState === 'visible') {
-                    window.open(storeUrl, '_blank');
-                }
-            }, 2000);
-        }
+        document.getElementById('downloadLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('downloadApp').click();
+        });
         
-        // 🆕 NUOVA: Funzioni di condivisione evento
-        function shareEvent(platform) {
-            if (!currentEvento) {
-                console.log('❌ Nessun evento caricato per condivisione');
-                return;
-            }
-            
-            const url = window.location.href;
-            const titolo = currentEvento.titolo || 'Evento su Ibidem';
-            const data = currentEvento.data_evento ? formatDate(currentEvento.data_evento) : '';
-            const luogo = currentEvento.LUOGHI?.nome || '';
-            
-            let text = `🎉 ${titolo}`;
-            if (data) text += `\n\n📅 ${data}`;
-            if (luogo) text += `\n📍 ${luogo}`;
-            text += `\n\nScopri di più su Ibidem!`;
-            
-            console.log(`📱 Condivisione su ${platform}:`, { url, text });
-            
-            switch (platform) {
-                case 'whatsapp':
-                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + '\n\n' + url)}`;
-                    window.open(whatsappUrl, '_blank');
-                    break;
-                    
-                case 'telegram':
-                    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
-                    window.open(telegramUrl, '_blank');
-                    break;
-                    
-                case 'copy':
-                    if (navigator.clipboard && window.isSecureContext) {
-                        navigator.clipboard.writeText(url).then(() => {
-                            showToast('✅ Link copiato negli appunti!', 'success');
-                        }).catch(() => {
-                            showToast('❌ Errore copia link', 'error');
-                        });
-                    } else {
-                        // Fallback per browser più vecchi
-                        const textArea = document.createElement('textarea');
-                        textArea.value = url;
-                        textArea.style.position = 'fixed';
-                        textArea.style.left = '-999999px';
-                        textArea.style.top = '-999999px';
-                        document.body.appendChild(textArea);
-                        textArea.focus();
-                        textArea.select();
-                        
-                        try {
-                            if (document.execCommand('copy')) {
-                                showToast('✅ Link copiato negli appunti!', 'success');
-                            } else {
-                                showToast('❌ Errore copia link', 'error');
-                            }
-                        } catch (err) {
-                            showToast('❌ Errore copia link', 'error');
-                        }
-                        
-                        textArea.remove();
-                    }
-                    break;
-                    
-                default:
-                    console.log('❌ Piattaforma di condivisione non riconosciuta:', platform);
-            }
-        }
+        // 🚀 Avvia quando la pagina è caricata
+        document.addEventListener('DOMContentLoaded', init);
         
-        // 🆕 NUOVA: Mostra stato dell'evento
-        function showEvento() {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('error').style.display = 'none';
-            document.getElementById('evento-content').style.display = 'block';
-            
-            console.log('✅ Evento mostrato con successo');
+        // 📊 Tracking (opzionale)
+        if (prUserId && eventoId) {
+            // Qui potresti aggiungere una chiamata API per tracciare il click
+            console.log('📊 Click tracciato per PR:', prUserId, 'Evento:', eventoId);
         }
-        
-        // 🆕 NUOVA: Mostra errore
-        function showError() {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('evento-content').style.display = 'none';
-            document.getElementById('error').style.display = 'block';
-            
-            console.log('❌ Mostrato stato di errore');
-        }
-        
-        // 🆕 NUOVA: Toast notification semplice
-        function showToast(message, type = 'info') {
-            // Crea toast element
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
-                color: white;
-                padding: 12px 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                z-index: 10000;
-                font-weight: 500;
-                max-width: 300px;
-                word-wrap: break-word;
-                animation: slideIn 0.3s ease-out;
-            `;
-            toast.textContent = message;
-            
-            // Aggiungi CSS animation se non esiste
-            if (!document.querySelector('#toast-animations')) {
-                const style = document.createElement('style');
-                style.id = 'toast-animations';
-                style.textContent = `
-                    @keyframes slideIn {
-                        from { transform: translateX(100%); opacity: 0; }
-                        to { transform: translateX(0); opacity: 1; }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-            
-            document.body.appendChild(toast);
-            
-            // Rimuovi dopo 3 secondi
-            setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.style.animation = 'slideIn 0.3s ease-out reverse';
-                    setTimeout(() => toast.remove(), 300);
-                }
-            }, 3000);
-        }
-        
-        // Utility: formatta data (copia della funzione principale)
-        function formatDate(dateString) {
-            try {
-                const date = new Date(dateString);
-                const options = { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                };
-                return date.toLocaleDateString('it-IT', options);
-            } catch (e) {
-                console.error('❌ Errore formattazione data:', e);
-                return dateString;
-            }
-        }
-        
-        // 📊 Debug info
-        console.log('🔧 Pagina evento inizializzata');
-        console.log('📍 URL corrente:', window.location.href);
-        console.log('🆔 ID evento estratto:', eventoId);
-        console.log('🌐 User Agent:', navigator.userAgent);
     </script>
 </body>
 </html>
